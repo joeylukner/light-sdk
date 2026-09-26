@@ -103,6 +103,11 @@ class HomeScreenViewModel(private val audio: LightAudio) : LightViewModel<Unit>(
         setting.value = totalSeconds
     }
 
+    fun startWith(totalSeconds: Int) {
+        setting.value = totalSeconds
+        start()
+    }
+
     fun start() {
         if (setting.value <= 0) return
         remaining.value = setting.value.seconds
@@ -213,7 +218,7 @@ class HomeScreen(private val sealedActivity: SealedLightActivity) : LightScreen<
                         LightBarButton.LightIcon(
                             icon = LightIcons.PENCIL,
                             contentDescription = "set custom timer",
-                            onClick = { navigateTo(::CustomTimerScreen, viewModel::setTime) },
+                            onClick = { navigateTo(::CustomTimerScreen, viewModel::startWith) },
                         )
                     } else null,
                 )

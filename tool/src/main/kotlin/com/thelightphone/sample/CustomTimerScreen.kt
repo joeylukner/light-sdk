@@ -60,13 +60,9 @@ class CustomTimerViewModel : LightViewModel<Int>() {
         if (digits.value.length >= MAX_DIGITS || (digits.value.isEmpty() && digit == 0)) return
         digits.value += digit
     }
-
-    fun backspace() {
-        digits.value = digits.value.dropLast(1)
-    }
 }
 
-/** Keypad entry for an exact duration; goes back with the total in seconds. */
+/** Keypad entry for an exact duration; SET goes back with the total in seconds, × goes back without one. */
 class CustomTimerScreen(sealedActivity: SealedLightActivity) :
     LightScreen<Int, CustomTimerViewModel>(sealedActivity) {
 
@@ -118,10 +114,10 @@ class CustomTimerScreen(sealedActivity: SealedLightActivity) :
                         Box(
                             modifier = Modifier
                                 .size(KEY_SIZE)
-                                .lightClickable { viewModel.backspace() },
+                                .lightClickable { goBack() },
                             contentAlignment = Alignment.Center,
                         ) {
-                            LightIcon(icon = LightIcons.CLOSE, contentDescription = "delete last digit")
+                            LightIcon(icon = LightIcons.CLOSE, contentDescription = "close")
                         }
                     }
                 }
